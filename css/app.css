@@ -54,7 +54,7 @@ h1 {
 .deck .card {
     height: 125px;
     width: 125px;
-/*    background: #2e3d49;*/
+    perspective: 500px;
     font-size: 0;
     color: #ffffff;
     border-radius: 8px;
@@ -62,11 +62,9 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-/*    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);*/
 }
 
 .deck .card.open {
-    /*transform: rotateY(0);*/
     background: #02b3e4;
     cursor: default;
 }
@@ -110,11 +108,6 @@ h1 {
 
 /*Card Flip*/
 /*https://www.youtube.com/watch?v=ajFK1WKxVDo*/
-.cardBox{
-    perspective: 500px;
-    margin: 15px;
-}
-
 .cardInner{
     position: relative;
     width: 125px;
@@ -126,24 +119,12 @@ h1 {
     border-radius: 8px;
 }
 
-.card-front, card-back{
+.cardInner i{
     position: absolute;
     top: 0;
     left: 0;
-    width: 125px;
-    height: 125px;
     color: #fff;
     backface-visibility: hidden;
-}
-
-.card-front{
-    display: flex;
-    font-size: 40px;
-    justify-content: center;
-    text-align: center;
-}
-
-.card-back{
     border-radius:8px;
     width: 125px;
     height: 125px;
@@ -153,13 +134,6 @@ h1 {
     align-self: center;
     font-size: 30px;
     justify-content: center;
-}
-
-/*.cardBox:hover .cardInner{
-    transform: rotateY(180deg);
-}*/
-
-.card-back{
     transform: rotateY(180deg);
 }
 
@@ -171,7 +145,6 @@ h1 {
 }
 
 .open {
-    /*transform: rotateY(0);*/
     transform: rotateY(180deg);
     background: #02b3e4;
     cursor: default;
