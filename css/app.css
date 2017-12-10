@@ -155,9 +155,9 @@ h1 {
     justify-content: center;
 }
 
-.cardBox:hover .cardInner{
+/*.cardBox:hover .cardInner{
     transform: rotateY(180deg);
-}
+}*/
 
 .card-back{
     transform: rotateY(180deg);
@@ -172,10 +172,15 @@ h1 {
 
 .open {
     /*transform: rotateY(0);*/
+    transform: rotateY(180deg);
     background: #02b3e4;
     cursor: default;
 }
 
 .deck .show {
     font-size: 33px;
+}
+
+i{
+    cursor:pointer;
 }

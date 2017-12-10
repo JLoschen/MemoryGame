@@ -1,6 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
+var allCards = [];
+var openCards = [];
+var previousCard;
 
 
 /*
@@ -25,12 +28,31 @@ function shuffle(array) {
     return array;
 }
 
+/* set up the event listener for a card.*/
+//$('.cardInner').click(function(){
+$('.cardInner').click(function(){
+    var card = $(this);
+    
+    var cardType = card.attr('class');
+    /* If a card is clicked:
+     *  - display the card's symbol (put this functionality in another function that you call from this one)*/
+    card.toggleClass('open');//TODO put in separate function
+    console.log(cardType);
+    
+    /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
+    //openCards.push(card);//TODO put in separate function
+    
+    /*- if the list already has another card, check to see if the two cards match*/
+//    if(openCards.length > 0){
+//        var card1 = openCards[0];
+//        var card2 = openCards[1];
+//        card1.classList
+//    }
+    
+    
+});
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
