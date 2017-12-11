@@ -2,7 +2,7 @@
  * Create a list that holds all of your cards
  */
 //var allCards = [];
-var allCards = $('.card-back i');
+var allCards = $('.card-back');
 var openCards = [];
 var previousCard;
 var moves = 0;
@@ -37,6 +37,56 @@ function shuffle(array) {
     return array;
 }
 
+$('.restart').click(function(){ 
+    allCards = shuffle(allCards);
+    
+    //var fontAwesomeIconClasses =
+    
+    //clear all old classes 
+    //allCards.each(function(num){
+    $('.card-back').each(function(num){
+        var iElement = $(this);
+        iElement.removeClass('open');
+        iElement.removeClass('match');
+    });
+    
+    var allCardItems = [];
+    $('.card-back').each(function(x,elem){
+        //$(this).children('card-back').first().remove();
+        //$(this).children('card-back').first().detach();
+        console.log(this);
+        console.log(x);
+        console.log(elem);
+        allCardItems.push(elem);
+        $(this).detach();
+        
+    });
+    
+//    allCardItems.each(function(num){
+//        var iElement = $(this);
+//        iElement.removeClass('open');
+//        iElement.removeClass('match');
+//    })
+    
+    allCardItems = shuffle(allCardItems);
+    
+    for(x in allCardItems){
+        console.log(x);
+    }
+//    var cards = $('.card').each(function(){
+//        //$(this).children('card-back').first().remove();
+//        $(this).append(allCards)
+//    });
+    var cards = $('.card');
+    for(var i = 0; i < cards.length; i++){
+        console.log("index is " + i);
+        $(cards[i]).append(allCardItems[i]);
+        //var classToRemove = iElement.classList[1];
+        //$(iElemnent).attr('class', 'fa')
+    }
+    
+});
+
 /* set up the event listener for a card.*/
 $('.card-back').click(function(){
     var card = $(this);
@@ -67,6 +117,7 @@ $('.card-back').click(function(){
             
             if(numMatches === 8){
                 displayWinningMessage();
+                updateNumStars();
             }
         }else{
             setTimeout( function (){
@@ -81,7 +132,7 @@ $('.card-back').click(function(){
                         openCards[1].toggleClass('open');
                     }                
                     openCards = [];
-                }, 1700);
+                }, 1000);//1500
         }
         /*+ increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
         incrementMoves();
@@ -111,10 +162,9 @@ function removeStar(){
 }
 
 /* if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
-
 function displayWinningMessage(){
     
-    var message = numStars + ' stars.\n' + winningMessages[numStars];
+    var message = 'You win with ' + numStars + ' stars.\n' + winningMessages[numStars];
     setTimeout(function(){
                     alert(message);        
                 },1000);
