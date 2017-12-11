@@ -2,12 +2,18 @@
  * Create a list that holds all of your cards
  */
 //var allCards = [];
-var allCards = $('.cardInner i');
+var allCards = $('.card-back i');
 var openCards = [];
 var previousCard;
 var moves = 0;
 var numMatches = 0;
-
+var numStars = 3;
+var winningMessages = [
+    'Better late than never....',
+    'Better luck next time',
+    'Good job! Mr. grader person',
+    'Wow, that was fast, you are at 1 with the random number generator!'
+];
 
 /*
  * Display the cards on the page
@@ -35,9 +41,12 @@ function shuffle(array) {
 $('.card-back').click(function(){
     var card = $(this);
     
+    if(card.hasClass('open')) return;
+    
     /* If a card is clicked:
      *  - display the card's symbol (put this functionality in another function that you call from this one)*/
     card.toggleClass('open');//TODO put in separate function
+    //card.toggleClass('show');//TODO put in separate function
     
     /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
 //    openCards.push(card.children('i')[0]);//TODO put in separate function
@@ -50,17 +59,14 @@ $('.card-back').click(function(){
         var type1= card1.classList[1];
         var type2 = card2.classList[1];
         if(type1 === type2){
-            /*    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
+            /* if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
             $(card1).toggleClass('match');
             $(card2).toggleClass('match');
             openCards =[];
             numMatches++;
             
             if(numMatches === 8){
-                setTimeout(function(){
-                    alert('You win!');        
-                },1000);
-                
+                displayWinningMessage();
             }
         }else{
             setTimeout( function (){
@@ -79,6 +85,7 @@ $('.card-back').click(function(){
         }
         /*+ increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
         incrementMoves();
+        updateNumStars();
     }
      
 });
@@ -88,6 +95,27 @@ function incrementMoves(){
     $('.moves').html(moves);
 }
 
-/*
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function updateNumStars(){
+    if(moves === 18){
+        removeStar();
+    }else if(moves === 15){
+        removeStar();
+    }else if(moves === 12){
+        removeStar();
+    }
+}
+
+function removeStar(){
+    numStars--;
+    $('.stars li').first().remove();
+}
+
+/* if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
+
+function displayWinningMessage(){
+    
+    var message = numStars + ' stars.\n' + winningMessages[numStars];
+    setTimeout(function(){
+                    alert(message);        
+                },1000);
+}
