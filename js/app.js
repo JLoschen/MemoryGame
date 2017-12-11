@@ -1,13 +1,10 @@
-/*
- * Create a list that holds all of your cards
- */
-//var allCards = [];
-var allCards = $('.card-back');
+/* Create a list that holds all of your cards */
 var openCards = [];
 var previousCard;
 var moves = 0;
 var numMatches = 0;
 var numStars = 3;
+var waitingFor2CardsToFlipBack = false;//In the 1000ms after 2 cards displayed dont' allow another selection
 var winningMessages = [
     'Better late than never....',
     'Better luck next time',
@@ -38,60 +35,42 @@ function shuffle(array) {
 }
 
 $('.restart').click(function(){ 
-    allCards = shuffle(allCards);
-    
-    //var fontAwesomeIconClasses =
-    
-    //clear all old classes 
-    //allCards.each(function(num){
-    $('.card-back').each(function(num){
-        var iElement = $(this);
-        iElement.removeClass('open');
-        iElement.removeClass('match');
-    });
+    waitingFor2CardsToFlipBack = false;
     
     var allCardItems = [];
-    $('.card-back').each(function(x,elem){
-        //$(this).children('card-back').first().remove();
-        //$(this).children('card-back').first().detach();
-        console.log(this);
-        console.log(x);
-        console.log(elem);
-        allCardItems.push(elem);
-        $(this).detach();
-        
+    $('.card-back').each(function(index, element){
+        var card = $(this);
+        card.removeClass('open');
+        card.children('i').first().removeClass('match');
+        allCardItems.push(element);
+        card.detach();
     });
     
-//    allCardItems.each(function(num){
-//        var iElement = $(this);
-//        iElement.removeClass('open');
-//        iElement.removeClass('match');
-//    })
-    
+    //shuffle order
     allCardItems = shuffle(allCardItems);
     
-    for(x in allCardItems){
-        console.log(x);
-    }
-//    var cards = $('.card').each(function(){
-//        //$(this).children('card-back').first().remove();
-//        $(this).append(allCards)
-//    });
+    //add new cards to visual tree
     var cards = $('.card');
     for(var i = 0; i < cards.length; i++){
-        console.log("index is " + i);
         $(cards[i]).append(allCardItems[i]);
-        //var classToRemove = iElement.classList[1];
-        //$(iElemnent).attr('class', 'fa')
     }
     
+    //reset move count
+    moves = 0;
+    $('.moves').html(moves);
+    
+    //reset stars count
+    $('.stars li').remove();
+    $('.stars').append(`<li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>`);
 });
 
 /* set up the event listener for a card.*/
 $('.card-back').click(function(){
     var card = $(this);
     
-    if(card.hasClass('open')) return;
+    if(card.hasClass('open') || waitingFor2CardsToFlipBack) return;
     
     /* If a card is clicked:
      *  - display the card's symbol (put this functionality in another function that you call from this one)*/
@@ -102,8 +81,10 @@ $('.card-back').click(function(){
 //    openCards.push(card.children('i')[0]);//TODO put in separate function
     openCards.push(card);//TODO put in separate function
     
+    
     /*- if the list already has another card, check to see if the two cards match*/
     if(openCards.length > 1){
+        waitingFor2CardsToFlipBack = true;
         var card1 = openCards[0].children('i')[0];
         var card2 = openCards[1].children('i')[0];
         var type1= card1.classList[1];
@@ -119,6 +100,7 @@ $('.card-back').click(function(){
                 displayWinningMessage();
                 updateNumStars();
             }
+            waitingFor2CardsToFlipBack = false;
         }else{
             setTimeout( function (){
                 /*+ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)*/
@@ -130,7 +112,8 @@ $('.card-back').click(function(){
                     }
                     if(openCards[1].hasClass('open')){
                         openCards[1].toggleClass('open');
-                    }                
+                    }          
+                    waitingFor2CardsToFlipBack = false;
                     openCards = [];
                 }, 1000);//1500
         }
