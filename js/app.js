@@ -42,6 +42,7 @@ $('.restart').click(function(){
         var card = $(this);
         card.removeClass('open');
         card.removeClass('match');
+        card.removeClass('mismatch');
         allCardItems.push(element);
         card.detach();
     });
@@ -102,20 +103,18 @@ $('.card-back').click(function(){
             }
             waitingFor2CardsToFlipBack = false;
         }else{
+            /*+ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)*/
+            openCards[0].addClass('mismatch');
+            openCards[1].addClass('mismatch');
+            
             setTimeout( function (){
-                /*+ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)*/
-                
-                //TODO handle issue of user clicking 
-                // before 1700 ms is up.
-                    if(openCards[0].hasClass('open')){
-                        openCards[0].toggleClass('open');
-                    }
-                    if(openCards[1].hasClass('open')){
-                        openCards[1].toggleClass('open');
-                    }          
-                    waitingFor2CardsToFlipBack = false;
-                    openCards = [];
-                }, 700);//1500
+                openCards[0].removeClass('mismatch');
+                openCards[1].removeClass('mismatch');
+                openCards[0].removeClass('open');
+                openCards[1].removeClass('open');
+                waitingFor2CardsToFlipBack = false;
+                openCards = [];
+            }, 1500);//1500
         }
         /*+ increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
         incrementMoves();
