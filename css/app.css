@@ -114,7 +114,7 @@ h1 {
 
 /*Card Flip*/
 /*https://www.youtube.com/watch?v=ajFK1WKxVDo*/
-.cardInner{
+.card-back{
     position: relative;
     width: 125px;
     height: 125px;
@@ -125,7 +125,7 @@ h1 {
     border-radius: 8px;
 }
 
-.cardInner .fa{
+.card-back .fa{
     position: absolute;
     top: 0;
     left: 0;

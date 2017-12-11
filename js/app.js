@@ -6,6 +6,7 @@ var allCards = $('.cardInner i');
 var openCards = [];
 var previousCard;
 var moves = 0;
+var numMatches = 0;
 
 
 /*
@@ -31,10 +32,9 @@ function shuffle(array) {
 }
 
 /* set up the event listener for a card.*/
-$('.cardInner').click(function(){
+$('.card-back').click(function(){
     var card = $(this);
     
-    var cardType = card.attr('class');
     /* If a card is clicked:
      *  - display the card's symbol (put this functionality in another function that you call from this one)*/
     card.toggleClass('open');//TODO put in separate function
@@ -51,10 +51,17 @@ $('.cardInner').click(function(){
         var type2 = card2.classList[1];
         if(type1 === type2){
             /*    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
-            console.log("match!");
             $(card1).toggleClass('match');
             $(card2).toggleClass('match');
             openCards =[];
+            numMatches++;
+            
+            if(numMatches === 8){
+                setTimeout(function(){
+                    alert('You win!');        
+                },1000);
+                
+            }
         }else{
             setTimeout( function (){
                 /*+ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)*/
