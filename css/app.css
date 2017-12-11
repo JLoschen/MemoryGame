@@ -61,19 +61,47 @@ h1 {
     align-items: center;
 }
 
-.deck .card .open {
-    background: #02b3e4;
-    cursor: default;
+.deck .card .match i{
+    background: #02ccba;
 }
 
+.card i{
+    background: #02b3e4;
+    cursor: default;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+/*
 .deck .card.show {
     font-size: 33px;
 }
+*/
 
 .deck .card .match {
     cursor: default;
-    background: #02ccba;
     font-size: 41px;
+    animation: successAnimation 0.9s ease 0.4s 1;
+}
+
+@keyframes successAnimation{
+    0%{
+        transform:scale(1,1) rotateY(180deg);
+    }
+    30%{
+        transform:scale(1.3,0.7) rotateY(180deg);
+    }
+    55%{
+        transform:scale(0.75,1.25) rotateY(180deg);
+    }
+    75%{
+        transform:scale(1.15,0.85) rotateY(180deg); 
+    }
+    90%{
+        transform:scale(0.9,1.1) rotateY(180deg); 
+    }
+    100%{
+        transform:scale(1,1) rotateY(180deg); 
+    }
 }
 
 /* Styles for the Score Panel */
@@ -108,10 +136,12 @@ h1 {
     height: 125px;
     background: #2e3d49;
     transform-style: preserve-3d;
-    transition: 0.6s ease;
+    transition: 0.5s ease;
     cursor:pointer;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
     border-radius: 8px;
+    
+    backface-visibility: hidden;
 }
 
 .card-back .fa{
@@ -134,13 +164,8 @@ h1 {
 /*card flip fixes*/
 .open {
     transform: rotateY(180deg);
-    background: #02b3e4;
     cursor: default;
-}
-
-.match {
-    background: #02ccba;
-    font-size: 33px;
+    
 }
 
 .deck .show {

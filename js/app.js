@@ -4,7 +4,7 @@ var previousCard;
 var moves = 0;
 var numMatches = 0;
 var numStars = 3;
-var waitingFor2CardsToFlipBack = false;//In the 1000ms after 2 cards displayed dont' allow another selection
+var waitingFor2CardsToFlipBack = false;//In the 1000ms after 2 cards displayed don't allow another selection
 var winningMessages = [
     'Better late than never....',
     'Better luck next time',
@@ -41,7 +41,7 @@ $('.restart').click(function(){
     $('.card-back').each(function(index, element){
         var card = $(this);
         card.removeClass('open');
-        card.children('i').first().removeClass('match');
+        card.removeClass('match');
         allCardItems.push(element);
         card.detach();
     });
@@ -85,10 +85,10 @@ $('.card-back').click(function(){
     /*- if the list already has another card, check to see if the two cards match*/
     if(openCards.length > 1){
         waitingFor2CardsToFlipBack = true;
-        var card1 = openCards[0].children('i')[0];
-        var card2 = openCards[1].children('i')[0];
-        var type1= card1.classList[1];
-        var type2 = card2.classList[1];
+        var card1 = openCards[0];
+        var card2 = openCards[1];
+        var type1= card1.children('i')[0].classList[1];
+        var type2 = card2.children('i')[0].classList[1];
         if(type1 === type2){
             /* if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
             $(card1).toggleClass('match');
@@ -115,7 +115,7 @@ $('.card-back').click(function(){
                     }          
                     waitingFor2CardsToFlipBack = false;
                     openCards = [];
-                }, 1000);//1500
+                }, 700);//1500
         }
         /*+ increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
         incrementMoves();
@@ -142,6 +142,8 @@ function updateNumStars(){
 function removeStar(){
     numStars--;
     $('.stars li').first().remove();
+    var starToRemove = $('.stars');
+    $('.stars').append(`<li><i class="fa fa-star-o"></i></li>`);
 }
 
 /* if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
