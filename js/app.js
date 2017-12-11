@@ -1,9 +1,11 @@
 /*
  * Create a list that holds all of your cards
  */
-var allCards = [];
+//var allCards = [];
+var allCards = $('.cardInner i');
 var openCards = [];
 var previousCard;
+var moves = 0;
 
 
 /*
@@ -29,7 +31,6 @@ function shuffle(array) {
 }
 
 /* set up the event listener for a card.*/
-//$('.cardInner').click(function(){
 $('.cardInner').click(function(){
     var card = $(this);
     
@@ -37,7 +38,6 @@ $('.cardInner').click(function(){
     /* If a card is clicked:
      *  - display the card's symbol (put this functionality in another function that you call from this one)*/
     card.toggleClass('open');//TODO put in separate function
-    console.log(cardType);
     
     /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
 //    openCards.push(card.children('i')[0]);//TODO put in separate function
@@ -54,17 +54,33 @@ $('.cardInner').click(function(){
             console.log("match!");
             $(card1).toggleClass('match');
             $(card2).toggleClass('match');
+            openCards =[];
         }else{
-            console.log("no match");
+            setTimeout( function (){
+                /*+ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)*/
+                
+                //TODO handle issue of user clicking 
+                // before 1700 ms is up.
+                    if(openCards[0].hasClass('open')){
+                        openCards[0].toggleClass('open');
+                    }
+                    if(openCards[1].hasClass('open')){
+                        openCards[1].toggleClass('open');
+                    }                
+                    openCards = [];
+                }, 1700);
         }
+        /*+ increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
+        incrementMoves();
     }
-    
-    
+     
 });
 
+function incrementMoves(){
+    moves++;
+    $('.moves').html(moves);
+}
 
 /*
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
