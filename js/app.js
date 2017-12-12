@@ -1,14 +1,14 @@
 /* Create a list that holds all of your cards */
-var openCards = [];
-var previousCard;
+var openCards = [];//The last card or 2 that will be compared for whether or not they are a match. Does not include previous matches.
 var moves = 0;
 var numMatches = 0;
 var numStars = 3;
 var waitingFor2CardsToFlipBack = false;//In the 1000ms after 2 cards displayed don't allow another selection
+
 var winningMessages = [
     'Better late than never....',
     'Better luck next time',
-    'Good job! Mr. grader person',
+    'Good job! I\'m impressed' ,
     'Wow, that was fast, you are at 1 with the random number generator!'
 ];
 
@@ -36,8 +36,10 @@ function shuffle(array) {
 
 $('.restart').click(function(){ 
     waitingFor2CardsToFlipBack = false;
-    
+    resetTimer();
     var allCardItems = [];
+    
+    //clear last game, this causes css to flip all the cards back over
     $('.card-back').each(function(index, element){
         var card = $(this);
         card.removeClass('open');
@@ -56,7 +58,7 @@ $('.restart').click(function(){
         $(cards[i]).append(allCardItems[i]);
     }
     
-    //reset move count
+    //reset counts
     moves = 0;
     numMatches = 0;
     $('.moves').html(moves);
@@ -157,8 +159,13 @@ function removeStar(){
 }
 
 function displayWinningMessage(){
-    var message = 'You win with ' + numStars + ' stars.\n' + winningMessages[numStars];
-    setTimeout(function(){        
+    stopTimer();
+    var message = winningMessages[numStars] + 
+        '\n      Moves:'+ moves +
+        '\nStar Rating:' + numStars +
+        '\n       Time:' + mins.html() + ':' + secs.html();
+    setTimeout(function(){      
+        //display using sweet alert.js
             swal({
                 title:'You win!',
                 text:message,
@@ -166,4 +173,55 @@ function displayWinningMessage(){
                 confirmButtonText:'OK'
             });
     },1000);
+    
+}
+
+/*Timer functions below*/
+var mins = $('span.minutes');
+var secs = $('span.seconds');
+var lastUpdateTime = new Date().getTime();
+var interval = 0;
+var currentTimer = 0;
+
+$(function(){
+   startTimer();
+});
+
+function pad (n) {
+    return ('00' + n).substr(-2);
+}
+
+function update () {
+    var now = new Date().getTime(),
+        dt = now - lastUpdateTime;
+
+    currentTimer += dt;
+
+    var time = new Date(currentTimer);
+    mins.html(pad(time.getMinutes()));
+    secs.html(pad(time.getSeconds()));
+    lastUpdateTime = now;
+}
+
+function startTimer () {
+    if (!interval) {
+        lastUpdateTime = new Date().getTime();
+        interval = setInterval(update, 1);
+    }
+}
+
+function stopTimer () {
+    clearInterval(interval);
+    interval = 0;
+}
+
+function resetTimer () {
+    stopTimer();
+
+    currentTimer = 0;
+
+    mins.html(pad(0)); 
+    secs.html(pad(0));
+    
+    startTimer();
 }

@@ -186,3 +186,13 @@ h1 {
 .deck .card .mismatch i{
     background:red;
 }
+
+.minutes{
+    font-family:monospace;
+    font-size:18px;
+}
+
+.seconds{
+    font-family:monospace;
+    font-size:18px;
+}
