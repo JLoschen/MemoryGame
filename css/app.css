@@ -1,198 +1,196 @@
 html {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
+*, *::before, *::after {
+	box-sizing: inherit;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+	background: #ffffff url('../img/geometry2.png');
+	/* Background pattern from Subtle Patterns */
+	font-family: 'Coda', cursive;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
 }
 
 /* Styles for the deck of cards */
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+	width: 660px;
+	min-height: 680px;
+	background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+	padding: 32px;
+	border-radius: 10px;
+	box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    perspective: 500px;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	height: 125px;
+	width: 125px;
+	perspective: 500px;
+	font-size: 0;
+	color: #ffffff;
+	border-radius: 8px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.deck .card .match i{
-    background: #02ccba;
+.deck .card .match i {
+	background: #02ccba;
 }
 
-.card i{
-    background: #02b3e4;
-    cursor: default;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+.card i {
+	background: #02b3e4;
+	cursor: default;
+	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
 .deck .card .match {
-    cursor: default;
-    font-size: 41px;
-    animation: successAnimation 0.9s ease 0.3s 1;
+	cursor: default;
+	font-size: 41px;
+	animation: successAnimation 0.9s ease 0.3s 1;
 }
 
-@keyframes successAnimation{
-    0%{
-        transform:scale(1,1) rotateY(180deg);
-    }
-    30%{
-        transform:scale(1.3,0.7) rotateY(180deg);
-    }
-    55%{
-        transform:scale(0.75,1.25) rotateY(180deg);
-    }
-    75%{
-        transform:scale(1.15,0.85) rotateY(180deg); 
-    }
-    90%{
-        transform:scale(0.9,1.1) rotateY(180deg); 
-    }
-    100%{
-        transform:scale(1,1) rotateY(180deg); 
-    }
+@keyframes successAnimation {
+	0% {
+		transform: scale(1, 1) rotateY(180deg);
+	}
+	30% {
+		transform: scale(1.3, 0.7) rotateY(180deg);
+	}
+	55% {
+		transform: scale(0.75, 1.25) rotateY(180deg);
+	}
+	75% {
+		transform: scale(1.15, 0.85) rotateY(180deg);
+	}
+	90% {
+		transform: scale(0.9, 1.1) rotateY(180deg);
+	}
+	100% {
+		transform: scale(1, 1) rotateY(180deg);
+	}
 }
 
 /* Styles for the Score Panel */
 .score-panel {
-    text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+	text-align: left;
+	width: 345px;
+	margin-bottom: 10px;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
+	list-style: none;
+	display: inline-block;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+	float: right;
+	cursor: pointer;
 }
 
 /*Card Flip*/
 /*https://www.youtube.com/watch?v=ajFK1WKxVDo*/
-.card-back{
-    position: relative;
-    width: 125px;
-    height: 125px;
-    background: #2e3d49;
-    transform-style: preserve-3d;
-    transition: 0.5s ease;
-    cursor:pointer;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
-    border-radius: 8px;
-    backface-visibility: hidden;
+.card-back {
+	position: relative;
+	width: 125px;
+	height: 125px;
+	background: #2e3d49;
+	transform-style: preserve-3d;
+	transition: 0.5s ease;
+	cursor: pointer;
+	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+	border-radius: 8px;
+	backface-visibility: hidden;
 }
 
-.card-back .fa{
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #fff;
-    backface-visibility: hidden;
-    border-radius:8px;
-    width: 125px;
-    height: 125px;
-    display: flex;
-    align-items:center;
-    align-self: center;
-    font-size: 41px;/* 30px;*/
-    justify-content: center;
-    transform: rotateY(180deg);
+.card-back .fa {
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #fff;
+	backface-visibility: hidden;
+	border-radius: 8px;
+	width: 125px;
+	height: 125px;
+	display: flex;
+	align-items: center;
+	align-self: center;
+	font-size: 41px;
+	justify-content: center;
+	transform: rotateY(180deg);
 }
 
 /*card flip fixes*/
 .open {
-    transform: rotateY(180deg);
-    cursor: default;
+	transform: rotateY(180deg);
+	cursor: default;
 }
 
-@keyframes failAnimation{
-    0%{
-        transform: rotateZ(0deg) rotateY(180deg);
-    }
-    25%{
-        transform: rotateZ(-5deg) rotateY(180deg);
-    }
-    50%{
-        transform: rotateZ(4deg) rotateY(180deg);
-    }
-    75%{
-        transform: rotateZ(-2deg) rotateY(180deg); 
-    }
-    100%{
-        transform: rotateZ(0deg) rotateY(180deg); 
-    }
+@keyframes failAnimation {
+	0% {
+		transform: rotateZ(0deg) rotateY(180deg);
+	}
+	25% {
+		transform: rotateZ(-5deg) rotateY(180deg);
+	}
+	50% {
+		transform: rotateZ(4deg) rotateY(180deg);
+	}
+	75% {
+		transform: rotateZ(-2deg) rotateY(180deg);
+	}
+	100% {
+		transform: rotateZ(0deg) rotateY(180deg);
+	}
 }
 
-.mismatch{
-    animation: failAnimation 0.9s ease 0.3s 1;
-    transform-origin:center 500%;
+.mismatch {
+	animation: failAnimation 0.9s ease 0.3s 1;
+	transform-origin: center 500%;
 }
 
-.deck .card .mismatch i{
-    background:red;
+.deck .card .mismatch i {
+	background: red;
 }
 
-.minutes{
-    font-family:monospace;
-    font-size:18px;
+.minutes {
+	font-family: monospace;
+	font-size: 18px;
 }
 
-.seconds{
-    font-family:monospace;
-    font-size:18px;
+.seconds {
+	font-family: monospace;
+	font-size: 18px;
 }
