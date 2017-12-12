@@ -58,6 +58,7 @@ $('.restart').click(function(){
     
     //reset move count
     moves = 0;
+    numMatches = 0;
     $('.moves').html(moves);
     
     //reset stars count
@@ -71,57 +72,67 @@ $('.restart').click(function(){
 $('.card-back').click(function(){
     var card = $(this);
     
+    //if the card is aleady showing or doing mismatch animation then ignore click
     if(card.hasClass('open') || waitingFor2CardsToFlipBack) return;
     
-    /* If a card is clicked:
-     *  - display the card's symbol (put this functionality in another function that you call from this one)*/
-    card.toggleClass('open');//TODO put in separate function
-    //card.toggleClass('show');//TODO put in separate function
+    //flip the card over
+    card.toggleClass('open');
+    openCards.push(card);
     
-    /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
-//    openCards.push(card.children('i')[0]);//TODO put in separate function
-    openCards.push(card);//TODO put in separate function
-    
-    
-    /*- if the list already has another card, check to see if the two cards match*/
+    //if this is the 2nd card of the guess
     if(openCards.length > 1){
+        
+        //lock user clicking during animation
         waitingFor2CardsToFlipBack = true;
+        
+        //get font-awesome class of the 2 cards
         var card1 = openCards[0];
         var card2 = openCards[1];
         var type1= card1.children('i')[0].classList[1];
         var type2 = card2.children('i')[0].classList[1];
+        
+        //if the 2 flipped cards are of the save font-awesome class
         if(type1 === type2){
-            /* if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
+            
+            //trigger green success animation on both cards
             $(card1).toggleClass('match');
             $(card2).toggleClass('match');
+            
             openCards =[];
             numMatches++;
             
+            //if they found all matches
             if(numMatches === 8){
                 displayWinningMessage();
                 updateNumStars();
             }
+            
+            //allow the user to click again
             waitingFor2CardsToFlipBack = false;
-        }else{
-            /*+ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)*/
+            
+        }else{//not a match
+            
+            //start red mismatch animation
             openCards[0].addClass('mismatch');
             openCards[1].addClass('mismatch');
             
-            setTimeout( function (){
-                openCards[0].removeClass('mismatch');
-                openCards[1].removeClass('mismatch');
-                openCards[0].removeClass('open');
-                openCards[1].removeClass('open');
-                waitingFor2CardsToFlipBack = false;
-                openCards = [];
-            }, 1500);//1500
+            //flip cards 
+            setTimeout(hideMisMatchCards, 1500);
         }
-        /*+ increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
         incrementMoves();
         updateNumStars();
     }
      
 });
+
+function hideMisMatchCards(){
+    openCards[0].removeClass('mismatch');
+    openCards[1].removeClass('mismatch');
+    openCards[0].removeClass('open');
+    openCards[1].removeClass('open');
+    waitingFor2CardsToFlipBack = false;
+    openCards = [];
+}
 
 function incrementMoves(){
     moves++;
@@ -145,11 +156,14 @@ function removeStar(){
     $('.stars').append(`<li><i class="fa fa-star-o"></i></li>`);
 }
 
-/* if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
 function displayWinningMessage(){
-    
     var message = 'You win with ' + numStars + ' stars.\n' + winningMessages[numStars];
-    setTimeout(function(){
-                    alert(message);        
-                },1000);
+    setTimeout(function(){        
+            swal({
+                title:'You win!',
+                text:message,
+                type:'success',
+                confirmButtonText:'OK'
+            });
+    },1000);
 }
