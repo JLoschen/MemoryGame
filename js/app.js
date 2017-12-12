@@ -160,7 +160,7 @@ function removeStar(){
 
 function displayWinningMessage(){
     stopTimer();
-    var message = winningMessages[numStars] + 
+    var message = winningMessages[numStars] + ' Click the restart button if you wish to play again.' +
         '\n      Moves:'+ moves +
         '\nStar Rating:' + numStars +
         '\n       Time:' + mins.html() + ':' + secs.html();
