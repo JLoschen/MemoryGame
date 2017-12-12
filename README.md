@@ -1,22 +1,9 @@
-# Memory Game Project
+## Web Memory Game
+This is a web version of the classic memory game many people played as kids. The goal of the game is to match 8 pairs of cards in as few turns as possible.
 
-## Table of Contents
+### About
+This is a project I did for the Udacity [Front End Web] (https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) developer nanodegree. The project uses jQuery for DOM manipulation and css animations  to flip the cards as well as javascript for the basic game logic. To play the game in any browser simply download the files and in the browser open `index.html`.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+### Dependencies
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
-# MemoryGame
-Memory Game project for Udacity Front End course
+The game is dependent on [jQuery] (https://jquery.com/) and a [google font](https://fonts.google.com/specimen/Coda) which it installs from a CDNs. Other than that all that's needed are the included files.
