@@ -4,7 +4,7 @@ var moves = 0;
 var numMatches = 0;
 var numStars = 3;
 var waitingFor2CardsToFlipBack = false; //In the 1000ms after 2 cards displayed don't allow another selection
-var winningMessages = ['Better late than never....', 'Better luck next time', 'Good job! I\'m impressed', 'Wow, that was fast, you are at 1 with the random number generator!'];
+var winningMessages = ['Better late than never....', 'Good job! I\'m impressed', 'Wow, that was fast, you are at 1 with the random number generator!'];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -28,6 +28,7 @@ $('.restart').click(function() {
 	waitingFor2CardsToFlipBack = false;
 	resetTimer();
 	var allCardItems = [];
+    
 	//clear last game, this causes css to flip all the cards back over
 	$('.card-back').each(function(index, element) {
 		var card = $(this);
@@ -37,17 +38,22 @@ $('.restart').click(function() {
 		allCardItems.push(element);
 		card.detach();
 	});
+    
 	//shuffle order
 	allCardItems = shuffle(allCardItems);
+    
 	//add new cards to visual tree
 	var cards = $('.card');
 	for (var i = 0; i < cards.length; i++) {
 		$(cards[i]).append(allCardItems[i]);
 	}
+    
 	//reset counts
 	moves = 0;
 	numMatches = 0;
+    numStars = 3;
 	$('.moves').html(moves);
+    
 	//reset stars count
 	$('.stars li').remove();
 	$('.stars').append(`<li><i class="fa fa-star"></i></li>
@@ -59,18 +65,22 @@ $('.card-back').click(function() {
 	var card = $(this);
 	//if the card is aleady showing or doing mismatch animation then ignore click
 	if (card.hasClass('open') || waitingFor2CardsToFlipBack) return;
+    
 	//flip the card over
 	card.toggleClass('open');
 	openCards.push(card);
+    
 	//if this is the 2nd card of the guess
 	if (openCards.length > 1) {
 		//lock user clicking during animation
 		waitingFor2CardsToFlipBack = true;
+        
 		//get font-awesome class of the 2 cards
 		var card1 = openCards[0];
 		var card2 = openCards[1];
 		var type1 = card1.children('i')[0].classList[1];
 		var type2 = card2.children('i')[0].classList[1];
+        
 		//if the 2 flipped cards are of the save font-awesome class
 		if (type1 === type2) {
 			//trigger green success animation on both cards
@@ -78,17 +88,22 @@ $('.card-back').click(function() {
 			$(card2).toggleClass('match');
 			openCards = [];
 			numMatches++;
+            
 			//if they found all matches
 			if (numMatches === 8) {
 				displayWinningMessage();
 				updateNumStars();
 			}
+            
 			//allow the user to click again
 			waitingFor2CardsToFlipBack = false;
+            
 		} else { //not a match
+            
 			//start red mismatch animation
 			openCards[0].addClass('mismatch');
 			openCards[1].addClass('mismatch');
+            
 			//flip cards 
 			setTimeout(hideMisMatchCards, 1500);
 		}
@@ -112,11 +127,9 @@ function incrementMoves() {
 }
 
 function updateNumStars() {
-	if (moves === 18) {
+	if (moves === 19) {
 		removeStar();
-	} else if (moves === 15) {
-		removeStar();
-	} else if (moves === 12) {
+	} else if (moves === 14) {
 		removeStar();
 	}
 }
@@ -130,8 +143,10 @@ function removeStar() {
 
 function displayWinningMessage() {
 	stopTimer();
-	var message = winningMessages[numStars] + ' Click the restart button if you wish to play again.' + '\n      Moves:' + moves + '\nStar Rating:' + numStars + '\n       Time:' + mins.html() + ':' + secs.html();
+    
+	var message = winningMessages[numStars - 1] + ' Click the restart button if you wish to play again.' + '\n      Moves:' + moves + '\nStar Rating:' + numStars + '\n       Time:' + mins.html() + ':' + secs.html();
 	setTimeout(function() {
+        
 		//display using sweet alert.js
 		swal({
 			title: 'You win!',
@@ -141,6 +156,7 @@ function displayWinningMessage() {
 		});
 	}, 1000);
 }
+
 /*Timer functions below*/
 var mins = $('span.minutes');
 var secs = $('span.seconds');

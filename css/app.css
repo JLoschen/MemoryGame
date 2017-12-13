@@ -107,7 +107,7 @@ h1 {
 	margin: 0;
 	padding: 0;
 	display: inline-block;
-	margin: 0 5px 0 0;
+	margin: 0 10px 0 10px;
 }
 
 .score-panel .stars li {
@@ -124,8 +124,8 @@ h1 {
 /*https://www.youtube.com/watch?v=ajFK1WKxVDo*/
 .card-back {
 	position: relative;
-	width: 125px;
-	height: 125px;
+    width:100%;
+    height:100%;
 	background: #2e3d49;
 	transform-style: preserve-3d;
 	transition: 0.5s ease;
@@ -142,14 +142,42 @@ h1 {
 	color: #fff;
 	backface-visibility: hidden;
 	border-radius: 8px;
-	width: 125px;
-	height: 125px;
+    width:100%;
+    height:100%;
 	display: flex;
 	align-items: center;
 	align-self: center;
 	font-size: 41px;
 	justify-content: center;
 	transform: rotateY(180deg);
+}
+
+/*tablet resizing*/
+@media (max-width: 680px) {
+   /* PUT CSS HERE TO ALTER WEBSITE TO SINGLE COLUMN */
+    .deck .card{
+        height:100px;
+        width:100px;    
+    }    
+    .deck{
+        width:500px;
+        min-height: 500px;
+        padding: 21px;
+    }
+}
+
+/*mobile resizing*/
+@media (max-width: 520px) {
+    .deck .card{
+        height:70px;
+        width:70px;    
+    } 
+    
+    .deck{
+        width:375px;
+        min-height: 375px;
+        padding: 15px;
+    }
 }
 
 /*card flip fixes*/
