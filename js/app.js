@@ -24,7 +24,9 @@ function shuffle(array) {
 	}
 	return array;
 }
-$('.restart').click(function() {
+$('.restart').click(setupNewGame);
+
+function setupNewGame() {
 	waitingFor2CardsToFlipBack = false;
 	resetTimer();
 	var allCardItems = [];
@@ -59,7 +61,8 @@ $('.restart').click(function() {
 	$('.stars').append(`<li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>`);
-});
+}
+
 /* set up the event listener for a card.*/
 $('.card-back').click(function() {
 	var card = $(this);
@@ -144,7 +147,7 @@ function removeStar() {
 function displayWinningMessage() {
 	stopTimer();
     
-	var message = winningMessages[numStars - 1] + ' Click the restart button if you wish to play again.' + '\n      Moves:' + moves + '\nStar Rating:' + numStars + '\n       Time:' + mins.html() + ':' + secs.html();
+	var message = winningMessages[numStars - 1] + '\n      Moves:' + moves + '\nStar Rating:' + numStars + '\n       Time:' + mins.html() + ':' + secs.html();
 	setTimeout(function() {
         
 		//display using sweet alert.js
@@ -152,8 +155,11 @@ function displayWinningMessage() {
 			title: 'You win!',
 			text: message,
 			type: 'success',
-			confirmButtonText: 'OK'
-		});
+			confirmButtonText: 'Next Game'
+		},function(){
+            setupNewGame();    
+        });
+        
 	}, 1000);
 }
 
