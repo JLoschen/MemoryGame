@@ -4,6 +4,7 @@ var moves = 0;
 var numMatches = 0;
 var numStars = 3;
 var waitingFor2CardsToFlipBack = false; //In the 1000ms after 2 cards displayed don't allow another selection
+var isGameStarted = false;//the timer starts after the user selects the first card
 var winningMessages = ['Better late than never....', 'Good job! I\'m impressed', 'Wow, that was fast, you are at 1 with the random number generator!'];
 /*
  * Display the cards on the page
@@ -29,6 +30,7 @@ $('.restart').click(setupNewGame);
 function setupNewGame() {
 	waitingFor2CardsToFlipBack = false;
 	resetTimer();
+    isGameStarted = false;
 	var allCardItems = [];
     
 	//clear last game, this causes css to flip all the cards back over
@@ -66,6 +68,13 @@ function setupNewGame() {
 /* set up the event listener for a card.*/
 $('.card-back').click(function() {
 	var card = $(this);
+    
+    if(!isGameStarted){
+        //resetTimer();
+        startTimer();
+        isGameStarted = true;
+    }
+    
 	//if the card is aleady showing or doing mismatch animation then ignore click
 	if (card.hasClass('open') || waitingFor2CardsToFlipBack) return;
     
@@ -170,7 +179,8 @@ var lastUpdateTime = new Date().getTime();
 var interval = 0;
 var currentTimer = 0;
 $(function() {
-	startTimer();
+	//startTimer();
+    resetTimer();
 });
 
 function pad(n) {
@@ -204,5 +214,5 @@ function resetTimer() {
 	currentTimer = 0;
 	mins.html(pad(0));
 	secs.html(pad(0));
-	startTimer();
+	//startTimer();
 }
