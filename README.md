@@ -1,5 +1,5 @@
 # Web Memory Game
-[Play It](https://jloschen.github.io/)
+[Play It](https://jloschen.github.io/MemoryGame/index.html)
 
 ![Pic of game](/memory.png)
 
